@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController()
 @RequestMapping("/teilys")
 public class TeilyController
@@ -18,6 +20,13 @@ public class TeilyController
         this.service = service;
     }
 
+    /**
+     * return All teilys
+     */
+    @GetMapping()
+    List<TeilyDTO> getAllTeilys(){
+        return service.getAllTeilys();
+    }
     /**
      * Get teily by id
      * @param id e.g., 1

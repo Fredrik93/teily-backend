@@ -7,6 +7,7 @@ import com.teily.backend.repository.TeilyRepository;
 import com.teily.backend.specification.TeilySpecificationDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,12 +21,22 @@ public class TeilyService
         this.converter = converter;
     }
 
+    /**
+     * @return all teilys from a user
+     */
+    //TODO Should get alla teilys from a userId, not all ALL teilys
+    public List<TeilyDTO> getAllTeilys(){
+        List <Teily> src = repository.findAll();
+       return converter.convert(src);
+    }
+
     public TeilyDTO getTeilyById(String id){
         Optional<Teily> src = repository.findById(id);
         return converter.convert(src);
     }
     public TeilyDTO createTeily(TeilySpecificationDTO spec){
-        Teily teily = converter.convertToRepository(spec);
+        TeilyDTO dto = new TeilyDTO(spec.id(), spec.name());
+        Teily teily = converter.convertToModel(dto);
         repository.save(teily);
         return new TeilyDTO(spec.id(), spec.name());
     }

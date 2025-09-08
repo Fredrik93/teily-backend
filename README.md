@@ -1,9 +1,17 @@
 # teily-backend
 
-#### Requests 
-Get a teily
-curl -X GET http://localhost:8080/teily/1
+#### Starting 
+1. Connect to the mongdb cluster TeilyCluster (this should be automatic but the cluster might be paused)
+2. Spin up spring server
+3. Run post request below in terminal 
 
+#### Kan vara bra att veta  
+* Du har sparat mongos uri till intellijs Run -> Edit Configurations -> Environment variables. Utan detta så vet inte intellij vilka miljövariabler du har
+
+#### Requests 
+##### Get a teily
+curl -X GET http://localhost:8080/teilys/12
+##### Create a teily 
 Create a teily
 curl -X POST http://localhost:8080/teilys \
 -H "Content-Type: application/json" \
@@ -11,3 +19,6 @@ curl -X POST http://localhost:8080/teilys \
 "id": "12",
 "name": "John"
 }'
+
+##### Get all teilys 
+curl -X GET http://localhost:8080/teilys

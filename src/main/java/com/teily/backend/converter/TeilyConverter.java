@@ -2,23 +2,41 @@ package com.teily.backend.converter;
 
 import com.teily.backend.dto.TeilyDTO;
 import com.teily.backend.model.Teily;
-import com.teily.backend.specification.TeilySpecificationDTO;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
 public class TeilyConverter
 {
-    public TeilyDTO convert(Optional<Teily> src){
-        return new TeilyDTO(src.get().id(), src.get().name());
+    /**
+     * Convert a teily from db to a teilyDTO
+     *
+     * @param src
+     * @return
+     */
+    public TeilyDTO convert(Optional<Teily> src)
+    {
+        return src.map(teily -> new TeilyDTO(teily.id(), teily.name())).orElse(null);
+    }
+
+    /**
+     * Convert a list of teilys into list of teilyDTOs
+     */
+    public List<TeilyDTO> convert(List<Teily> src)
+    {
+        return src.stream().map(t -> new TeilyDTO(t.id(), t.name())).toList();
     }
 
     /**
      * In order to save a teily we need to convert it from a specification to a model
-     * @param src teily
+     *
+     * @param src
+     *         teily
      */
-    public Teily convertToRepository(TeilySpecificationDTO src){
+    public Teily convertToModel(TeilyDTO src)
+    {
         return new Teily(src.id(), src.name());
     }
 }
