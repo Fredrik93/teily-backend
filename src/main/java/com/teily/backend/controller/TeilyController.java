@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController()
 @RequestMapping("/teilys")
+@CrossOrigin(origins = "http://localhost:5173")
 public class TeilyController
 {
     private final TeilyService service;
