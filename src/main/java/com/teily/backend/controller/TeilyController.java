@@ -4,7 +4,6 @@ import com.teily.backend.dto.TeilyDTO;
 import com.teily.backend.service.TeilyService;
 import com.teily.backend.specification.TeilySpecificationDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,4 +42,13 @@ public class TeilyController
         TeilyDTO dto = service.createTeily(spec);
         return ResponseEntity.ok(dto);
     }
+    /**
+     * Delete all teilys
+     */
+    @DeleteMapping("/all")
+    public ResponseEntity<Void> deleteAll() {
+        service.deleteAll();
+        return ResponseEntity.noContent().build();
+    }
+
 }

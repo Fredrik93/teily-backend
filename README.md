@@ -16,9 +16,12 @@ Create a teily
 curl -X POST http://localhost:8080/teilys \
 -H "Content-Type: application/json" \
 -d '{
-"id": "12",
-"name": "John"
+"id": "2",
+"name": "Clean"
 }'
 
 ##### Get all teilys 
 curl -X GET http://localhost:8080/teilys
+
+##### Delete all teilys 
+curl -X DELETE http://localhost:8080/teilys/all

@@ -40,4 +40,7 @@ public class TeilyService
         repository.save(teily);
         return new TeilyDTO(spec.id(), spec.name());
     }
+    public void deleteAll(){
+        repository.deleteAll();
+    }
 }

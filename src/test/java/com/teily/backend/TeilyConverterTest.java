@@ -20,11 +20,11 @@ public class TeilyConverterTest
     }
     @Test
     void convertToModel(){
-        TeilyDTO t1 = new TeilyDTO("1", "John");
+        TeilyDTO t1 = new TeilyDTO("1", "Clean");
         Teily res = teilyConverter.convertToModel(t1);
         assertThat(res).isNotNull();
         assertThat(res.id()).isEqualTo("1");
-        assertThat(res.name()).isEqualTo("John");
+        assertThat(res.task()).isEqualTo("Clean");
     }
     @Test
     void convertToDTO(){
@@ -32,6 +32,6 @@ public class TeilyConverterTest
         TeilyDTO res = teilyConverter.convert(t);
         assertThat(res).isNotNull();
         assertThat(res.id()).isEqualTo("1");
-        assertThat(res.name()).isEqualTo("John");
+        assertThat(res.task()).isEqualTo("John");
     }
 }
