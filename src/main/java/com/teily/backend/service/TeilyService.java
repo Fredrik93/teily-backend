@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TeilyService
@@ -35,10 +36,11 @@ public class TeilyService
         return converter.convert(src);
     }
     public TeilyDTO createTeily(TeilySpecificationDTO spec){
-        TeilyDTO dto = new TeilyDTO(spec.id(), spec.name());
+        String id = UUID.randomUUID().toString();
+        TeilyDTO dto = new TeilyDTO(id, spec.task());
         Teily teily = converter.convertToModel(dto);
         repository.save(teily);
-        return new TeilyDTO(spec.id(), spec.name());
+        return new TeilyDTO(id, teily.task());
     }
     public void deleteAll(){
         repository.deleteAll();

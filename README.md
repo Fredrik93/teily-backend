@@ -16,8 +16,7 @@ Create a teily
 curl -X POST http://localhost:8080/teilys \
 -H "Content-Type: application/json" \
 -d '{
-"id": "2",
-"name": "Clean"
+"task": "Clean"
 }'
 
 ##### Get all teilys 
