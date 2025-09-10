@@ -24,3 +24,6 @@ curl -X GET http://localhost:8080/teilys
 
 ##### Delete all teilys 
 curl -X DELETE http://localhost:8080/teilys/all
+
+##### Delete one teily 
+curl -X DELETE http://localhost:8080/teilys/12

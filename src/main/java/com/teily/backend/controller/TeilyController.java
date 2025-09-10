@@ -52,4 +52,13 @@ public class TeilyController
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Delete one teily
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTeily(@PathVariable String id){
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
