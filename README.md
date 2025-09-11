@@ -30,6 +30,8 @@ curl -X DELETE http://localhost:8080/teilys/12
 
 
 ### Docker 
-Build an image
+##### Build an image
 docker build -t teily-backend . 
+##### Run a container
+docker run --env-file .env -p 8080:8080 teily-backend:latest
 
