@@ -61,4 +61,11 @@ public class TeilyController
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Toggle the isCompleted field on or off
+     */
+    @PatchMapping("/{id}")
+    public TeilyDTO toggleIsCompleted(@PathVariable String id){
+        return  service.toggleIsCompleted(id);
+    }
 }
