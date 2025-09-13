@@ -59,11 +59,9 @@ Just replace localhost:8080 url with backend https://teily-backend.onrender.com
 
 ##### Render test environment 
 Docker image used for testing 
-teily-backend:0.1 (this should probably be called :latest), change this on next docker update
+teily-backend:latest
 ##### Render prod environment 
-teily-backend:latest (this should  be changed to e.g., v1)
-
-
+teily-backend:prod-0.1
 
 ## Testing (curl)
 e.g., 
@@ -75,7 +73,16 @@ curl -X POST https://teily-backend.onrender.com/teilys \
 -d '{
 "task": "Cleaning"
 }'
+##### Delete all teilys from test env 
+curl -X DELETE https://teily-backend-0-1.onrender.com/teilys/all
 
 
 ## Trello 
 https://trello.com/b/JGrtFVcX/teily
+
+
+### Development approach 
+1. develop stuff, use localhost (spin up a spring server or build a docker image and run the container)
+2. Push docker image with tag :latest (will be pushed to the test environment on render)
+3. Push docker image with tag :<version> (will be pushed to the production environment on render)
+I can change these on render.com dashboard. Ive got two environments there, test and prod, both pointing to the same db, since im still just trying stuff out. i could ad another db. even a third for local dev. 
