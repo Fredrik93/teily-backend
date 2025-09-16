@@ -26,9 +26,10 @@ curl -X GET http://localhost:8080/teilys
 curl -X DELETE http://localhost:8080/teilys/all
 
 ##### Delete one teily 
-curl -X DELETE http://localhost:8080/teilys/636b39d8-21fe-476f-8556-315f2f4aa424
+curl -X DELETE http://localhost:8080/teilys/{id} 
+where id e.g., 636b39d8-21fe-476f-8556-315f2f4aa424
 #### Toggle a teily as completed / not completed 
-curl -X PATCH http://localhost:8080/teilys/636b39d8-21fe-476f-8556-315f2f4aa424
+curl -X PATCH http://localhost:8080/teilys/{id}
 
 
 ## Docker 
@@ -86,3 +87,28 @@ https://trello.com/b/JGrtFVcX/teily
 2. Push docker image with tag :latest (will be pushed to the test environment on render)
 3. Push docker image with tag :<version> (will be pushed to the production environment on render)
 I can change these on render.com dashboard. Ive got two environments there, test and prod, both pointing to the same db, since im still just trying stuff out. i could ad another db. even a third for local dev. 
+
+
+#### Log in 
+curl 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${WEB_API_KEY}' \
+-H 'Content-Type: application/json' \
+--data-binary '{
+"email": `${USER_EMAIL}`,
+"password": `${USER_PASS}`,
+"returnSecureToken": true
+}'
+
+## Save id_token in env var (that only lives in a terminal)
+export ID_TOKEN = "<id_token>"
+echo $ID_TOKEN
+
+## Get all teilys for a user 
+curl -X GET http://localhost:8080/teilys -H "Authorization: Bearer ${ID_TOKEN}"
+
+## create a teily as a user 
+curl -X POST http://localhost:8080/teilys \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer ${ID_TOKEN}" \
+-d '{
+"task": "Cleaning"
+}'

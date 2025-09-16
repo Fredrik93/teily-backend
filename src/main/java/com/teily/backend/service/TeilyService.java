@@ -5,8 +5,11 @@ import com.teily.backend.dto.TeilyDTO;
 import com.teily.backend.model.Teily;
 import com.teily.backend.repository.TeilyRepository;
 import com.teily.backend.specification.TeilySpecificationDTO;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,7 +30,11 @@ public class TeilyService
      */
     //TODO Should get alla teilys from a userId, not all ALL teilys
     public List<TeilyDTO> getAllTeilys(){
-        List <Teily> src = repository.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
+
+        List <Teily> sr = repository.findAll();
+        List <Teily> src = repository.findByUserId(userId);
        return converter.convert(src);
     }
 
@@ -36,11 +43,14 @@ public class TeilyService
         return converter.convert(src);
     }
     public TeilyDTO createTeily(TeilySpecificationDTO spec){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
+
         String id = UUID.randomUUID().toString();
-        TeilyDTO dto = new TeilyDTO(id, spec.task(), false);
+        TeilyDTO dto = new TeilyDTO(id, spec.task(), false, userId);
         Teily teily = converter.convertToModel(dto);
         repository.save(teily);
-        return new TeilyDTO(id, teily.getTask(), dto.isCompleted());
+        return new TeilyDTO(id, teily.getTask(), dto.isCompleted(), userId);
     }
     public void deleteAll(){
         repository.deleteAll();
@@ -62,6 +72,6 @@ public class TeilyService
         t.get().toggleCompleted();
 
         repository.save(t.get());
-        return new TeilyDTO(t.get().getId(), t.get().getTask(), t.get().isCompleted());
+        return new TeilyDTO(t.get().getId(), t.get().getTask(), t.get().isCompleted(), t.get().getUserId());
     }
 }

@@ -8,13 +8,20 @@ public class Teily
 {
 
     @Id
+    // task id
     String id;
+    // Task title
     String task;
+    // Is completed or not
     boolean isCompleted;
-    public Teily(String id, String task, boolean isCompleted){
+    // user id
+    private String userId;
+    public Teily(String id, String task, boolean isCompleted, String userId){
         this.id = id;
         this.task = task;
         this.isCompleted = isCompleted;
+        this.userId = userId;
+
     }
 
     public String getId()
@@ -48,5 +55,15 @@ public class Teily
     public void toggleCompleted()
     {
         isCompleted = !isCompleted;
+    }
+
+    public String getUserId()
+    {
+        return userId;
+    }
+
+    public void setUserId(String userId)
+    {
+        this.userId = userId;
     }
 }

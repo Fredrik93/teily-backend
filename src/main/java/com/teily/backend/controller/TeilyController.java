@@ -4,8 +4,10 @@ import com.teily.backend.dto.TeilyDTO;
 import com.teily.backend.service.TeilyService;
 import com.teily.backend.specification.TeilySpecificationDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController()
@@ -38,7 +40,7 @@ public class TeilyController
     /**
      * Create a teily
      */
-    @PostMapping("")
+    @PostMapping()
     ResponseEntity<TeilyDTO> createTeily(@RequestBody TeilySpecificationDTO spec){
         TeilyDTO dto = service.createTeily(spec);
         return ResponseEntity.ok(dto);

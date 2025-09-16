@@ -19,7 +19,7 @@ public class TeilyConverter
      */
     public TeilyDTO convert(Optional<Teily> src)
     {
-        return src.map(teily -> new TeilyDTO(teily.getId(), teily.getTask(), teily.isCompleted())).orElse(null);
+        return src.map(teily -> new TeilyDTO(teily.getId(), teily.getTask(), teily.isCompleted(), teily.getUserId())).orElse(null);
     }
 
     /**
@@ -27,7 +27,7 @@ public class TeilyConverter
      */
     public List<TeilyDTO> convert(List<Teily> src)
     {
-        return src.stream().map(t -> new TeilyDTO(t.getId(), t.getTask(), t.isCompleted())).toList();
+        return src.stream().map(t -> new TeilyDTO(t.getId(), t.getTask(), t.isCompleted(), t.getUserId())).toList();
     }
 
     /**
@@ -38,6 +38,6 @@ public class TeilyConverter
      */
     public Teily convertToModel(TeilyDTO src)
     {
-        return new Teily(src.id(), src.task(),src.isCompleted());
+        return new Teily(src.id(), src.task(),src.isCompleted(), src.userId());
     }
 }
