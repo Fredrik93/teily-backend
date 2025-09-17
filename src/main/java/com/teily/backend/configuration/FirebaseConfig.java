@@ -6,18 +6,29 @@ import com.google.firebase.FirebaseOptions;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 
 @Configuration
-public class FirebaseConfig
-{
+public class FirebaseConfig {
+
     @PostConstruct
     public void init() throws Exception {
-        FileInputStream serviceAccount =
-                new FileInputStream("src/main/resources/service-account-key.json");
-        FirebaseOptions options = new FirebaseOptions.Builder().setCredentials(GoogleCredentials.fromStream(serviceAccount)).build();
+        // Read from env var instead of file
+        String firebaseCredentials = System.getenv("FIREBASE_CONFIG");
+
+        if (firebaseCredentials == null || firebaseCredentials.isBlank()) {
+            throw new IllegalStateException("Missing FIREBASE_CREDENTIALS environment variable");
+        }
+
+        var serviceAccount = new ByteArrayInputStream(
+                firebaseCredentials.getBytes(StandardCharsets.UTF_8)
+        );
+
+        FirebaseOptions options = FirebaseOptions.builder()
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                .build();
 
         FirebaseApp.initializeApp(options);
     }
-
 }

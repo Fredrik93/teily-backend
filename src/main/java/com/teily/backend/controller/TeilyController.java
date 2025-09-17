@@ -4,15 +4,13 @@ import com.teily.backend.dto.TeilyDTO;
 import com.teily.backend.service.TeilyService;
 import com.teily.backend.specification.TeilySpecificationDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController()
 @RequestMapping("/teilys")
-@CrossOrigin(origins = { "http://localhost:5173", "https://teily-nt8mwq96x-fredriks-projects-2fe616bb.vercel.app" })
+@CrossOrigin(origins = { "http://localhost:5173", "https://teily-nt8mwq96x-fredriks-projects-2fe616bb.vercel.app",  "https://teily-knz98tl5b-fredriks-projects-2fe616bb.vercel.app" })
 public class TeilyController
 {
     private final TeilyService service;
