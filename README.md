@@ -112,3 +112,7 @@ curl -X POST http://localhost:8080/teilys \
 -d '{
 "task": "Cleaning"
 }'
+
+### API documentation
+http://localhost:8080/swagger-ui/index.html#/
+http://localhost:8080/v3/api-docs
