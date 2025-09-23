@@ -2,6 +2,7 @@ package com.teily.backend.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 
 @Document(collection = "teilys")
 public class Teily
@@ -16,11 +17,15 @@ public class Teily
     boolean isCompleted;
     // user id
     private String userId;
+
+    private final LocalDateTime dateOfCreation;
+
     public Teily(String id, String task, boolean isCompleted, String userId){
         this.id = id;
         this.task = task;
         this.isCompleted = isCompleted;
         this.userId = userId;
+        this.dateOfCreation = dateOfCreation();
 
     }
 
@@ -49,6 +54,11 @@ public class Teily
         this.task = task;
     }
 
+    public LocalDateTime getDateOfCreation()
+    {
+        return dateOfCreation;
+    }
+
     /**
      * Inverts the boolean, so true becomes false and false becomes true.
      */
@@ -65,5 +75,8 @@ public class Teily
     public void setUserId(String userId)
     {
         this.userId = userId;
+    }
+    private LocalDateTime dateOfCreation(){
+        return LocalDateTime.now();
     }
 }
