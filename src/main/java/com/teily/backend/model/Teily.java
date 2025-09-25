@@ -1,8 +1,11 @@
 package com.teily.backend.model;
+
+import io.netty.util.internal.StringUtil;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Document(collection = "teilys")
 public class Teily
@@ -17,15 +20,19 @@ public class Teily
     boolean isCompleted;
     // user id
     private String userId;
-
+    // The date that the task was created
     private final LocalDateTime dateOfCreation;
+    // The date that the task was completed
+    private LocalDateTime dateOfCompletion;
 
-    public Teily(String id, String task, boolean isCompleted, String userId){
+    public Teily(String id, String task, boolean isCompleted, String userId, LocalDateTime dateOfCreation, LocalDateTime dateOfCompletion)
+    {
         this.id = id;
         this.task = task;
         this.isCompleted = isCompleted;
         this.userId = userId;
-        this.dateOfCreation = dateOfCreation();
+        this.dateOfCreation = dateOfCreation;
+        this.dateOfCompletion = dateOfCompletion;
 
     }
 
@@ -59,6 +66,16 @@ public class Teily
         return dateOfCreation;
     }
 
+    public LocalDateTime getDateOfCompletion()
+    {
+        return dateOfCompletion;
+    }
+
+    public void setDateOfCompletion(LocalDateTime dateOfCompletion)
+    {
+        this.dateOfCompletion = dateOfCompletion;
+    }
+
     /**
      * Inverts the boolean, so true becomes false and false becomes true.
      */
@@ -76,7 +93,5 @@ public class Teily
     {
         this.userId = userId;
     }
-    private LocalDateTime dateOfCreation(){
-        return LocalDateTime.now();
-    }
+
 }
