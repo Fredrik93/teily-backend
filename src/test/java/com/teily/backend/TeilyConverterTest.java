@@ -6,6 +6,7 @@ import com.teily.backend.model.Teily;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,7 +21,7 @@ public class TeilyConverterTest
     }
     @Test
     void convertToModel(){
-        TeilyDTO t1 = new TeilyDTO("1", "Clean", false,"1234");
+        TeilyDTO t1 = new TeilyDTO("1", "Clean", false,"1234", LocalDateTime.now(),LocalDateTime.now());
         Teily res = teilyConverter.convertToModel(t1);
         assertThat(res).isNotNull();
         assertThat(res.getId()).isEqualTo("1");
@@ -28,7 +29,7 @@ public class TeilyConverterTest
     }
     @Test
     void convertToDTO(){
-        Optional<Teily> t = Optional.of(new Teily("1", "John", false, "1234"));
+        Teily t = new Teily("1", "John", false, "1234",LocalDateTime.now(),LocalDateTime.now());
         TeilyDTO res = teilyConverter.convert(t);
         assertThat(res).isNotNull();
         assertThat(res.id()).isEqualTo("1");

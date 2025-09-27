@@ -29,8 +29,10 @@ public class TeilyController
 
     @Operation(summary = "Get a task by id")
     @GetMapping("/{id}")
-    TeilyDTO getTeilyById(@PathVariable String id){
-        return service.getTeilyById(id);
+    public ResponseEntity<TeilyDTO> getTeilyById(@PathVariable String id) {
+        return service.getTeilyById(id)
+                .map(ResponseEntity::ok)            // 200 OK with body
+                .orElseGet(() -> ResponseEntity.notFound().build()); // 404 if not found
     }
 
     @Operation(summary = "Create a new task")
@@ -50,9 +52,10 @@ public class TeilyController
 
     @Operation(summary = "Delete one task by id")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTeily(@PathVariable String id){
+    public ResponseEntity<String> deleteTeily(@PathVariable String id){
         service.deleteById(id);
-        return ResponseEntity.noContent().build();
+        String message = "Task with id " + id + " was deleted successfully.";
+        return ResponseEntity.ok(message);
     }
 
 

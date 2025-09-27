@@ -14,13 +14,13 @@ public class TeilyConverter
     /**
      * Convert a teily from db to a teilyDTO
      *
-     * @param src
+     * @param teily dto
      * @return
      */
-    public TeilyDTO convert(Optional<Teily> src)
+    public TeilyDTO convert(Teily teily)
     {
-        return src.map(teily -> new TeilyDTO(teily.getId(), teily.getTask(), teily.isCompleted(), teily.getUserId(),
-                teily.getDateOfCreation(), teily.getDateOfCompletion())).orElse(null);
+        return new TeilyDTO(teily.getId(), teily.getTask(), teily.isCompleted(), teily.getUserId(),
+                teily.getDateOfCreation(), teily.getDateOfCompletion());
     }
 
     /**

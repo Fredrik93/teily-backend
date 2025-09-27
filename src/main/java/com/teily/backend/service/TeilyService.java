@@ -40,10 +40,10 @@ public class TeilyService
         return converter.convert(src);
     }
 
-    public TeilyDTO getTeilyById(String id)
+    public Optional<TeilyDTO> getTeilyById(String id)
     {
-        Optional<Teily> src = repository.findById(id);
-        return converter.convert(src);
+        Teily src = repository.findById(id).orElse(null);
+        return Optional.ofNullable(converter.convert(src));
     }
 
     public TeilyDTO createTeily(TeilySpecificationDTO spec)
