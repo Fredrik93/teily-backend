@@ -35,7 +35,6 @@ public class TeilyService
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = authentication.getName();
 
-        List<Teily> sr = repository.findAll();
         List<Teily> src = repository.findByUserId(userId);
         return converter.convert(src);
     }
@@ -43,6 +42,7 @@ public class TeilyService
     public Optional<TeilyDTO> getTeilyById(String id)
     {
         Teily src = repository.findById(id).orElse(null);
+
         return Optional.ofNullable(converter.convert(src));
     }
 
@@ -82,9 +82,11 @@ public class TeilyService
         // Patch the dto and save to db. If its true, set it to false, and vice versa. i.e., toggle it to be the opposite.
         t.get().toggleCompleted();
         //Update the date that the task was completed to current date
-        LocalDateTime date = t.get().isCompleted() ? LocalDateTime.now(): null;
+        LocalDateTime date = t.get().isCompleted() ? LocalDateTime.now() : null;
         t.get().setDateOfCompletion(date);
-        if(t.get().isCompleted()){}
+        if(t.get().isCompleted())
+        {
+        }
         repository.save(t.get());
         return new TeilyDTO(t.get().getId(), t.get().getTask(), t.get().isCompleted(), t.get().getUserId(),
                 t.get().getDateOfCreation(), t.get().getDateOfCompletion());
