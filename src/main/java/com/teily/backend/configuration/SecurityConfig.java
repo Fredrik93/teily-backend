@@ -33,11 +33,13 @@ public class SecurityConfig
         http
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults()) // <-- this line is important
+
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html",
-                                "/swagger-ui/**"
+                                "/swagger-ui/**",
+                                "/actuator/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

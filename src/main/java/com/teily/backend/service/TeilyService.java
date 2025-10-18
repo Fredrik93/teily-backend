@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +41,7 @@ public class TeilyService
     public Optional<TeilyDTO> getTeilyById(String id)
     {
         Teily src = repository.findById(id).orElse(null);
-
+        if(src == null) {return Optional.empty();}
         return Optional.ofNullable(converter.convert(src));
     }
 
