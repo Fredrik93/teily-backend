@@ -40,7 +40,7 @@ public class SecurityConfig
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
                                 "/actuator/**",
-                                "/ping"
+                                "/teilys/ping"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
